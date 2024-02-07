@@ -1,0 +1,21 @@
+{
+  "name": "Jax's homepage ",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bd": "nuxt build",
+    "dev": "nuxt dev",
+    "gen": "nuxt generate",
+    "prw": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.11.3",
+    "nuxt": "^3.10.1",
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5"
+  },
+  "overrides": {
+    "@parcel/watcher": "2.1.0"
+  }
+}
