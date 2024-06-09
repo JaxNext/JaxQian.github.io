@@ -13,6 +13,12 @@ export default defineNuxtConfig({
   app: {
     buildAssetsDir: '/static/'
   },
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
   vite: {
     build: {
       rollupOptions: {
