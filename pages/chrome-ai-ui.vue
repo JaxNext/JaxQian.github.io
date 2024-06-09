@@ -5,6 +5,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+useHead({
+  title: 'Chrome AI UI',
+})
 declare global {
   interface Window {
     ai: any;
