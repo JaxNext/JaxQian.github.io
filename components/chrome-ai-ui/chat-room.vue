@@ -54,7 +54,7 @@ function send() {
   background-color: rgba(127, 255, 212, 0.3);
   box-shadow: 0 0 100px 100px rgba(127, 255, 212, 0.3);
   background-image: none;
-  color: #fff;
+  color: #000;
 }
 .chat-box {
   width: 100%;
@@ -67,7 +67,7 @@ function send() {
   flex-direction: column-reverse;
   .chat-item {
     padding: 4px 8px;
-    background-color: orangered;
+    background-color: skyblue;
     border-radius: 8px;
     width: fit-content;
   }
@@ -82,13 +82,13 @@ function send() {
       padding-right: 0;
       padding-left: 40px;
       .chat-item {
-        background-color: green;
+        background-color: orange;
       }
     }
   }
 }
 .orange-border {
-  border: 4px solid orange;
+  border: 4px solid skyblue;
   border-radius: 20px;
 }
 .input-area {
@@ -104,7 +104,7 @@ function send() {
   }
 }
 .send-btn {
-  background-color: orange;
+  background-color: skyblue;
   margin-top: 8px;
   float: right;
   padding: 4px 8px;
