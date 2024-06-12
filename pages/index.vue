@@ -1,5 +1,6 @@
 <template>
-  <abuilding />
+  <!-- <abuilding /> -->
+  <album />
 </template>
 
 <script setup lang="ts">

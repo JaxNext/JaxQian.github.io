@@ -1,0 +1,1 @@
+.ripple{display:block;border-radius:50%;background-color:#ffffffb3;position:absolute;transform:scale(0);animation:ripple var(--d40dd3f0) ease-out}@keyframes ripple{to{transform:scale(1);opacity:0}}
