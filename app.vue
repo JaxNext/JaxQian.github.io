@@ -6,7 +6,7 @@
 </template>
 <script setup lang="ts">
 useHead({
-  title: 'Jax 的个人主页',
+  title: 'Re-Jax, have fun!',
 })
 </script>
 
