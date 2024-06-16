@@ -1,15 +1,12 @@
 <template>
-  <div class="wrapper flex flex-col min-h-screen">
-    <nav-bar />
-    <NuxtPage class="flex-1 bg-gradient-to-b from-slate-600 to-slate-800" />
+  <div class="min-h-screen bg-gradient-to-b from-gray-900 to-zinc-700 relative">
+    <NuxtPage />
   </div>
 </template>
 <script setup lang="ts">
 useHead({
-  title: 'Re-Jax, have fun!',
+  title: 'Re-Jax & have fun!',
 })
 </script>
 
-<style scoped>
-
-</style>
+<style src="~/styles/common.css"></style>

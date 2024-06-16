@@ -1,6 +1,5 @@
 <template>
-  <!-- <abuilding /> -->
-  <album />
+  <portfolio-card />
 </template>
 
 <script setup lang="ts">
