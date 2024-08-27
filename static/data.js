@@ -21,7 +21,7 @@ export const contactInfo = [
 export const projects = [
   {
     text: 'Blog',
-    link: 'https://radiant-platypus-748bbd.netlify.app/',
+    link: 'https://rejax.netlify.app/',
     shortName: 'Blog',
     external: true,
   },
