@@ -22,7 +22,7 @@
       <div class="projects text-right">
         <div class="text-2xl mb-[14px]">Projects</div>
         <div v-for="item in projects" :key="item.link">
-          <a :href="`./${item.link}`">{{ item.shortName }}</a>
+          <a :href="item.link" :target="`${item.external ? '_blank' : ''}`">{{ item.shortName }}</a>
         </div>
       </div>
     </div>

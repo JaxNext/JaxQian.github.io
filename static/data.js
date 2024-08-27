@@ -20,13 +20,19 @@ export const contactInfo = [
 ]
 export const projects = [
   {
+    text: 'Blog',
+    link: 'https://radiant-platypus-748bbd.netlify.app/',
+    shortName: 'Blog',
+    external: true,
+  },
+  {
     text: 'Chrome AI GUI',
-    link: 'chrome-ai-ui/',
+    link: './chrome-ai-ui/',
     shortName: 'Chrome-AI',
   },
   {
     text: '50 Projects 50 Days with Vue3',
-    link: '50pd/#/',
+    link: './50pd/#/',
     shortName: '50-p-d',
   },
 ]
