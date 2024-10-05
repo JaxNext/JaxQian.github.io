@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>File Observer API 监听文件变化</h1>
+  <button id="file-btn">选择一个文件进行监听</button>
+  <div id="file-info"></div>
+  <script type="module">
+    import { setFSObserverToken } from '../util.js'
+    setFSObserverToken()
+  </script>
+  <script>
+    const fileBtn = document.getElementById('file-btn')
+    let observer = null
+    let fileHandle = null
+    let changedCount = 0
+    fileBtn.addEventListener('click', handleClick)
+
+    async function handleClick() {
+      const fileHandles = await window.showOpenFilePicker()
+      if (!fileHandles?.length) return
+      fileHandle = fileHandles[0]
+      await showFileInfo(fileHandle)
+      const observer = new FileSystemObserver(callback)
+      await observer.observe(fileHandle)
+    }
+
+    async function callback(record, observer) {
+      console.log(record, observer)
+      changedCount++
+      await showFileInfo(fileHandle)
+    }
+
+    async function showFileInfo(handle) {
+      const file = await handle.getFile()
+      const { name, size, type, lastModified } = file
+      const fileInfo = document.getElementById('file-info')
+      fileInfo.innerHTML = `
+        <p>文件名: ${name}</p>
+        <p>文件大小: ${size} 字节</p>
+        <p>文件类型: ${type}</p>
+        <p>上次修改时间: ${new Date(lastModified).toLocaleString()}</p>
+        <p>文件变化次数: ${changedCount}</p>
+      `
+    }
+  </script>
+</body>
+</html>

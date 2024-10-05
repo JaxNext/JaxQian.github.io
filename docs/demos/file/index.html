@@ -100,10 +100,6 @@
       <button class="back-btn">回到上一级</button>
       <button class="create-dir-btn">新建文件夹</button>
       <button class="create-file-btn">新建文件</button>
-      <!-- <button class="read-btn">读取文件内容</button>
-      <button class="edit-btn">编辑文件内容</button>
-      <button class="rename-btn">文件重命名</button>
-      <button class="delete-btn">删除</button> -->
     </div>
   </div>
   <div class="content-box">
@@ -118,13 +114,9 @@
     const fileBox = document.querySelector('.file-box')
 
     const openBtn = document.querySelector('.open-btn')
-    const readBtn = document.querySelector('.read-btn')
-    const renameBtn = document.querySelector('.rename-btn')
-    const deleteBtn = document.querySelector('.delete-btn')
     const backBtn = document.querySelector('.back-btn')
     const createDirBtn = document.querySelector('.create-dir-btn')
     const createFileBtn = document.querySelector('.create-file-btn')
-    const editBtn = document.querySelector('.edit-btn')
 
     const KIND_MAP = {
       'file': '文件',
@@ -401,18 +393,6 @@
     
     // 回到上一级
     backBtn.addEventListener('click', back)
-
-    // 读取文件内容
-    readBtn.addEventListener('click', readFile)
-
-    // 删除
-    deleteBtn.addEventListener('click', deleteHandle)
-
-    // 重命名
-    renameBtn.addEventListener('click', renameFile)
-    
-    // 编辑文件内容
-    editBtn.addEventListener('click', editFile)
 
   </script>
 </body>
