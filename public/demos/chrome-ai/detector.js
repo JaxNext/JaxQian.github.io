@@ -1,5 +1,6 @@
 import BCP_47_LITE from './bcp47.js'
 
+let detector = null
 async function checkUsability() {
   let obj = {
     available: false,
@@ -11,11 +12,13 @@ async function checkUsability() {
     obj.available = res?.available === 'readily'
     obj.apiPath = ['ai', 'languageDetector']
     obj.createFuncName = 'create'
+    console.log('ai.languageDetector', res)
   } else if (translation?.canDetect) {
     const res = await translation.canDetect()
     obj.available = res === 'readily'
     obj.apiPath = ['translation']
     obj.createFuncName = 'createDetector'
+    console.log('translation', res)
   }
   return obj
 }
@@ -30,7 +33,7 @@ async function genDetector() {
   return await apiRoot[createFuncName]()
 }
 export async function detect(text) {
-  const detector = await genDetector()
+  detector = detector || (await genDetector())
 
   const result = await detector.detect(text)
   const defaultLang = 'en'
