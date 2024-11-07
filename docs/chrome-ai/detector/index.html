@@ -36,13 +36,21 @@
     <div id="output"></div>
   </div>
 
+  <script type="importmap">
+  {
+    "imports": {
+      "@rejax/browser-ai-translator": "https://unpkg.com/@rejax/browser-ai-translator/index.js"
+    }
+  }
+  </script>
+
   <script type="module">
-    import { setLangDetectorToken } from './detectorToken.js'
+    import { setLangDetectorToken } from './setToken.js'
     setLangDetectorToken()
   </script>
 
   <script type="module">
-    import { detect } from './detector.js'
+    import { detect } from '@rejax/browser-ai-translator'
 
     const ipt = document.getElementById('ipt')
     const btn = document.getElementById('btn')
@@ -52,7 +60,7 @@
     btn.addEventListener('click', async () => {
       const { value, text } = await detect(ipt.value)
       console.log(value, text)
-      output.textContent = text
+      output.textContent = new Intl.DisplayNames('zh', { type: 'language' }).of(value)
       outputRow.style.display = 'flex'
     })
   </script>

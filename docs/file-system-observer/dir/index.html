@@ -45,12 +45,19 @@
     <div id="dir-info"></div>
     <div id="log-box"></div>
   </div>
+  <script type="importmap">
+  {
+    "imports": {
+      "@rejax/fsot": "https://unpkg.com/@rejax/fsot/index.js"
+    }
+  }
+  </script>
   <script type="module">
-    import { setFSObserverToken } from '../util.js'
+    import { setFSObserverToken } from '../setToken.js'
     setFSObserverToken()
   </script>
   <script type="module">
-    import { FSObserver } from './fsObserver.js'
+    import { FSObserver } from '@rejax/fsot'
 
     const dirBtn = document.getElementById('dir-btn')
     const dirInfo = document.getElementById('dir-info')
