@@ -27,7 +27,7 @@ export const projects = [
   },
   {
     text: 'Chrome AI GUI',
-    link: './chrome-ai-ui/',
+    link: './chrome-ai/prompt',
     shortName: 'Chrome-AI',
   },
   {
