@@ -5,20 +5,24 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   modules: ['@nuxtjs/tailwindcss'],
+
   nitro: {
     output: {
       publicDir: 'docs'
     }
   },
+
   app: {
     buildAssetsDir: '/static/'
   },
+
   components: [
     {
       path: '~/components',
       pathPrefix: false,
     },
   ],
+
   vite: {
     build: {
       rollupOptions: {
@@ -35,5 +39,7 @@ export default defineNuxtConfig({
         }
       }
     }
-  }
+  },
+
+  compatibilityDate: '2024-12-03',
 })
