@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .row-box {
+      display: flex;
+    }
+    .row-box > div {
+      width: 50%;
+      height: 70vh;
+      overflow: auto;
+    }
+    #log-box {
+      background-color: #f0f0f0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      display: none;
+    }
+    .alert-box {
+      background-color: rgba(0, 0, 0, 0.2);
+      color: rgba(255, 0, 0, 0.8);
+      font-size: 12px;
+      line-height: 1;
+      margin-bottom: 12px;
+      padding: 8px;
+      border-radius: 12px;
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9276514607249827"
+  crossorigin="anonymous"></script>
+</head>
+<body>
+  <h1>File Observer API 监听文件夹变化</h1>
+  <div class="alert-box">
+    <div class="alert-title">⚠️ 注意！！！</div>
+    <div class="alert-content">
+      <p>1. 本程序不会上传任何文件到服务器</p>
+      <p>2. 切勿使用重要文件进行调试，以免造成数据丢失</p>
+    </div>
+  </div>
+  <button id="dir-btn">选择一个文件夹进行监听</button>
+  <div class="row-box">
+    <div id="dir-info"></div>
+    <div id="log-box"></div>
+  </div>
+  <script type="importmap">
+  {
+    "imports": {
+      "@rejax/fsot": "https://unpkg.com/@rejax/fsot/index.js"
+    }
+  }
+  </script>
+  <script type="module">
+    import { setFSObserverToken } from '../setToken.js'
+    setFSObserverToken()
+  </script>
+  <script type="module">
+    import { FSObserver } from '@rejax/fsot'
+
+    const dirBtn = document.getElementById('dir-btn')
+    const dirInfo = document.getElementById('dir-info')
+    const logBox = document.getElementById('log-box')
+
+    let dirEntries = null
+    const fob = new FSObserver(callback)
+
+    const kindMap = {
+      'directory': '文件夹',
+      'file': '文件',
+    }
+    const operationMap = {
+      'appeared': '新增',
+      'disappeared': '删除',
+      'modified': '修改',
+      'moved': '移动',
+      'renamed': '重命名',
+    }
+    
+    dirBtn.addEventListener('click', handleClick)
+    
+    async function handleClick() {
+      const dirHandle = await window.showDirectoryPicker()
+      dirEntries = dirHandle.values()
+
+      const options = {
+        recursive: true,
+      }
+      // const observer = new FileSystemObserver(callback)
+      
+      console.log('fob', fob);
+      
+      await fob.observe(dirHandle, options)
+
+      dirBtn.disabled = true
+      logBox.style.display = 'block'
+
+      for await (const entry of dirEntries) {
+        const { kind, name } = entry
+        showChild(kind, name)
+      }
+    }
+    
+    async function callback(log, records, observer) {
+      console.log('log', log);
+      const logEle = document.createElement('p')
+      logEle.innerText = log.description
+      logBox.appendChild(logEle)
+
+      const { operation, handle, to, from } = log
+      switch (operation) {
+        case 'create':
+          add(handle, to)
+          break
+        case 'remove':
+          remove(handle, to)
+          break
+        case 'modify':
+          modifyFile(handle, to)
+          break
+        case 'move':
+          move(handle, to, from)
+          break
+        case 'rename':
+          rename(handle, to, from)
+          break
+      }
+    }
+    function showChild(kind, name) {
+      const entryId = `${kind}-${name}`
+      const entry = document.createElement('p')
+      entry.id = entryId
+      entry.innerHTML = `${kindMap[kind]} ${name}`
+      dirInfo.appendChild(entry)
+    }
+    
+    async function add(handle, path) {
+      const { kind } = handle
+      if (!path.includes('/')) {
+        // 子文件中增加实体时，不显示
+        showChild(kind, path)
+      }
+    }
+
+    function remove(handle, path) {
+      const { kind, name } = handle
+      const childName = path || name
+      const entryId = `${kind}-${childName}`
+      const entry = document.getElementById(entryId)
+      if (entry) {
+        entry.remove()
+      }
+    }
+
+    async function modifyFile(handle, path) {
+      
+    }
+
+    async function rename(handle, path, oldPath) {
+      const { kind, name } = handle
+      const childName = path || name
+      const entryId = `${kind}-${oldPath}`
+      let entry = document.getElementById(entryId)
+      if (entry) {
+        entry.innerText = `${kindMap[kind]} ${path}`
+        entry.id = `${kind}-${path}`
+      }
+    }
+
+    async function move(handle, path, oldPath) {
+      const { kind, name } = handle
+      const childName = path || name
+      const entryId = `${kind}-${oldPath}`
+      let entry = document.getElementById(entryId)
+      const pathArr = path.split('/')
+      const oldPathArr = oldPath.split('/')
+      
+      // 文件层级下沉
+      if (pathArr.length > oldPathArr.length) {
+        entry?.remove()
+      }
+
+      // 文件层级上升
+      if (pathArr.length < oldPathArr.length && pathArr.length === 1) {
+        showChild(kind, name)
+      }
+    }
+  </script>
+</body>
+</html>

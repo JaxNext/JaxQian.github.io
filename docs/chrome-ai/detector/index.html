@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chrome 语种检测 Demo</title>
+  <style>
+    html, body {
+      height: 100%;
+      background-color: darkslategray;
+      color: lightcoral;
+      text-align: center;
+    }
+    .output-row {
+      display: none;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      font-size: 1.2em;
+      .output {
+        font-size: 1.7em;
+        font-weight: bold;
+      }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9276514607249827"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+  <h1>用 Chrome 内置模型检测语种</h1>
+  <div class="input-row">
+    <input type="text" id="ipt">
+    <button id="btn">检测</button>
+  </div>
+  <div class="output-row">
+    <div class="label">语种：</div>
+    <div id="output"></div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "@rejax/browser-ai-translator": "https://unpkg.com/@rejax/browser-ai-translator/index.js"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import { setLangDetectorToken } from './setToken.js'
+    setLangDetectorToken()
+  </script>
+
+  <script type="module">
+    import { detect } from '@rejax/browser-ai-translator'
+
+    const ipt = document.getElementById('ipt')
+    const btn = document.getElementById('btn')
+    const output = document.getElementById('output')
+    const outputRow = document.querySelector('.output-row')
+
+    btn.addEventListener('click', async () => {
+      const { value, text } = await detect(ipt.value)
+      console.log(value, text)
+      output.textContent = new Intl.DisplayNames('zh', { type: 'language' }).of(value)
+      outputRow.style.display = 'flex'
+    })
+  </script>
+</body>
+</html>
