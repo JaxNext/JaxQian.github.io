@@ -50,7 +50,7 @@
   <script type="importmap">
   {
     "imports": {
-      "@rejax/browser-ai-translator": "https://unpkg.com/@rejax/browser-ai-translator/index.js"
+      "@rejax/browser-ai": "https://unpkg.com/@rejax/browser-ai@0.0.17/dist/index.js"
     }
   }
   </script>
@@ -61,7 +61,7 @@
   </script>
 
   <script type="module">
-    import { checkDetectorAvailability, detect } from '@rejax/browser-ai-translator'
+    import { checkDetectorAvailability, detect } from '@rejax/browser-ai'
     const { available, message } = await checkDetectorAvailability()
     if (!available) {
       const messageBox = document.getElementById('message-box')
